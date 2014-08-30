@@ -16,6 +16,7 @@
 class gce_compute_master {
 
   $dns_domain = $::dns_domain_name
+  $project_id = $::gce_project_id
 
   Ini_setting {
     path    => '/etc/puppet/puppet.conf',
@@ -47,6 +48,17 @@ class gce_compute_master {
     group   => 'root',
     mode    => '0644',
     content => "*.${dns_domain}"
+  }
+  ->
+  file { '/etc/puppet/device.conf':
+    ensure  => file,
+    path    => '/etc/puppet/device.conf',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => "[${project_id}]
+type gce
+url [/dev/null]:${project_id}"
   }
   ->
   file { '/etc/puppet/manifests/site.pp':
