@@ -58,11 +58,6 @@ class gce_compute_master {
     content => 'import "nodes/*.pp"'
   }
   ->
-  file { '/etc/puppet/manifests/nodes':
-    source  => 'puppet://modules/gce_lamp/nodes',
-    recurse => true,
-  }
-  ->
   package { "puppetmaster":  
     ensure  => present
   }
