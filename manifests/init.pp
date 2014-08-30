@@ -23,6 +23,12 @@ class gce_compute_master {
     ensure  => present,
   }
   
+  ini_setting { 'puppet-conf-main-server':
+    section => 'main',
+    setting => 'server',
+    value   => "puppet-master.${dns_domain}",
+  }
+  ->
   ini_setting { 'puppet-conf-master-autosign':
     section => 'master',
     setting => 'autosign',
@@ -59,15 +65,6 @@ class gce_compute_master {
     content => "[${project_id}]
 type gce
 url [/dev/null]:${project_id}"
-  }
-  ->
-  file { '/etc/puppet/manifests/site.pp':
-    ensure  => file,
-    path    => '/etc/puppet/manifests/site.pp',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => 'import "nodes/*.pp"'
   }
   ->
   package { "puppetmaster":  
