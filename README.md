@@ -1,4 +1,4 @@
-# Puppet module to install a Open Source Puppet Master
+# Puppet module for Open Source Puppet Master on Google's Compute Engine
 
 
 This module is an addition to the official [Puppet for Google Compute Engine module](https://github.com/puppetlabs/puppetlabs-gce_compute)
